@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hopelessland</title>
+    <script>
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+          }
+        }
+        return "";
+      }
+      function checkCookie(x) {
+        if (getCookie(x) == "") {
+          if (x == "home") {
+            setCookie(x, 1, 365);
+          }
+          else {
+            setCookie(x, 0, 365);
+          }
+        }
+      }
+      
+      function ViewHope() {
+        alert("" + getCookie("hope"));
+      }
+      function ViewEnergy() {
+        alert("" + getCookie("energy"));
+      }
+      function ViewFood() {
+        alert("" + getCookie("food"));
+      }
+      function ViewWater() {
+        alert("" + getCookie("water"));
+      }
+      function ViewHome() {
+        alert("" + getCookie("home"));
+      }
+      function ViewFarm() {
+        alert("" + getCookie("farm"));
+      }
+      function UseHome() {
+        alert("You have slept for " + getCookie("home") + " minutes.");
+        setCookie("energy", parseInt(getCookie("energy")) + parseInt(getCookie("home")), 365);
+        alert("You now have " + getCookie("energy")+ " energy.")
+      }
+      function UpgradeHome() {
+        if (getCookie("energy") >= parseInt(getCookie("home")) *2) {
+          setCookie("energy", parseInt(getCookie("energy")) - (2*parseInt(getCookie("home"))), 365);
+          setCookie("home", parseInt(getCookie("home")) +1, 365);
+          alert("You can now sleep for " + parseInt(getCookie("home")) + " minutes.");
+        }
+      }
+      checkCookie("hope");
+      checkCookie("energy");
+      checkCookie("food");
+      checkCookie("water");
+      checkCookie("home");
+      checkCookie("farm");
+      
+    </script>
+  </head>
+  <body>
+    <div style="height:240px;width:360px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+      <b>Statistics</b>
+      <p onclick="ViewHope()">Hope</p>
+      <p onclick="ViewEnergy()">Energy</p>
+      <p onclick="ViewFood()">Food</p>
+      <p onclick="ViewWater()">Water Level</p>
+      <p onclick="ViewHome()">Home Level</p>
+      <p onclick="ViewFarm()">Farm Level</p>
+    </div>
+    <div style="height:240px;width:360px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+      <b>Actions</b>
+      <p onclick="UseHome()">Use Home</p>
+    </div>
+    <div style="height:240px;width:360px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+      <b>Build</b>
+      <p onclick="UpgradeHome()">Upgrade Home</p>
+    </div>
+    <textarea rows="20" cols="50" style="font-size: 15px">
+    Updates:
+    - Added style to update section
+    - Fixed glitch that caused broken amount of energy
+    - Fixed buttons
+    - Made Update section
+    </textarea>
+    <br><br>
+  </body>
+</html>
